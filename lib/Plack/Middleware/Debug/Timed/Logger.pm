@@ -15,11 +15,11 @@ Plack::Middleware::Debug::Timed::Logger - An Event Log Debug Panel
 
 =head1 VERSION
 
-Version 0.0.1
+Version 0.0.2
 
 =cut
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 =head1 SYNOPSIS
 
@@ -71,9 +71,21 @@ my $template = __PACKAGE__->build_template(<<'EOTMPL');
 %   my $i;
 %   foreach (sort { $a->started <=> $b->started } @{$log}) {
         <tr class="<%= ++$i % 2 ? 'plDebugOdd' : 'plDebugEven' %>">
+%         if (defined($_->data->{type})) {
             <td><%= $_->data->{type} %></td>
+%         } else {
+            <td>(undef)</td>
+%         }
+%         if (defined($_->data->{id})) {
             <td><%= $_->data->{id} %></td>
+%         } else {
+            <td>(undef)</td>
+%         }
+%         if (defined($_->data->{path})) {
             <td><%= $_->data->{path} %></td>
+%         } else {
+            <td>(undef)</td>
+%         }
             <td><%= sprintf('%.4f', $_->elapsed) %></td>
             <td><pre><%= vardump($_->data->{response}) %></pre></td>
             <td><pre><%= vardump($_->data->{request}) %></pre></td>
@@ -91,7 +103,7 @@ sub vardump {
     my $scalar = shift;
     return '(undef)' unless defined($scalar);
     return "$scalar" unless ref($scalar);
-    scalar Data::Dump::dump($scalar);
+    return scalar(Data::Dump::dump($scalar));
 }
 
 sub run {
