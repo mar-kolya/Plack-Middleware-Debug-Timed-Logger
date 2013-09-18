@@ -1,5 +1,5 @@
 Revision history for Plack-Middleware-Debug-Timed-Logger
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.0.1   First version, released on an unsuspecting world.
 
+0.0.2   Do not throw too many warning
