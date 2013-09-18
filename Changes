@@ -3,3 +3,5 @@ Revision history for Plack-Middleware-Debug-Timed-Logger
 0.0.1   First version, released on an unsuspecting world.
 
 0.0.2   Do not throw too many warning
+
+0.0.3   Up version for cpan upload
